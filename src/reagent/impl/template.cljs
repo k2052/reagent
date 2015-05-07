@@ -226,11 +226,18 @@
                     jsprops)]
             (make-element argv comp p first-child)))))))
 
+(def registered-components (atom {}))
+
+(defn get-tag [tag]
+  (if-let [tagr (@registered-components tag)]
+    tagr
+    tag))
+
 (defn vec-to-elem [v]
   (assert (pos? (count v))
           (str "Hiccup form should not be empty: "
                (pr-str v) (comp/comp-name)))
-  (let [tag (nth v 0)]
+  (let [tag (get-tag (nth v 0))]
     (assert (valid-tag? tag)
             (str "Invalid Hiccup form: "
                  (pr-str v) (comp/comp-name)))

@@ -57,7 +57,7 @@ just like a Reagent component function or class in Hiccup forms."
   (comp/reactify-component c))
 
 (defn render
-  "Render a Reagent component into the DOM. The first argument may be 
+  "Render a Reagent component into the DOM. The first argument may be
 either a vector (using Reagent's Hiccup syntax), or a React element. The second argument should be a DOM node.
 
 Optionally takes a callback that is called when the component is in place.
@@ -276,3 +276,5 @@ the result can be compared with ="
   [f & args]
   (util/partial-ifn. f args nil))
 
+(defn register-component [name f]
+  (swap! tmpl/registered-components conj {name f}))
